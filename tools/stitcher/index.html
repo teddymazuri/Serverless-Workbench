@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Stitcher Pro · Serverless Workbench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-purple-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-full">tools/stitcher/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v2.1.0</span>
+                    <div class="h-8 w-8 bg-purple-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-file-pdf text-purple-600 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-4 rounded-2xl shadow-lg shadow-purple-200">
+                        <i class="fas fa-layer-group text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">PDF Stitcher Pro</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Merge, reorder, and enhance PDF documents</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">pdf-lib</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-purple-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-bolt text-purple-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-indigo-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-indigo-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">client-side processing</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Panel - Controls -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Upload Area -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-cloud-upload-alt text-purple-500"></i>
+                            <span>Add Documents</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="dropzone" class="upload-dropzone">
+                            <div class="upload-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-slate-700 mb-2">Drop PDFs here</h4>
+                            <p class="text-slate-500 mb-4">or <span class="text-purple-600 font-medium cursor-pointer hover:underline">browse files</span></p>
+                            <input type="file" id="pdf-input" class="hidden" accept="application/pdf" multiple>
+                            <div class="upload-formats">
+                                <span class="format-badge"><i class="far fa-file-pdf mr-1"></i> PDF</span>
+                                <span class="format-badge"><i class="fas fa-lock-open mr-1"></i> No encryption</span>
+                                <span class="format-badge"><i class="fas fa-infinity mr-1"></i> Unlimited</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="grid grid-cols-2 gap-3 mt-6">
+                            <button onclick="document.getElementById('pdf-input').click()" class="quick-action-btn">
+                                <i class="fas fa-plus-circle"></i>
+                                <span>Add Files</span>
+                            </button>
+                            <button onclick="clearAll()" class="quick-action-btn">
+                                <i class="fas fa-trash-alt"></i>
+                                <span>Clear All</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-chart-pie text-purple-500"></i>
+                            <span>Document Stats</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="stat-value" id="file-count">0</div>
+                                <div class="stat-label">Documents</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-copy"></i>
+                                </div>
+                                <div class="stat-value" id="total-pages">0</div>
+                                <div class="stat-label">Total Pages</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-weight"></i>
+                                </div>
+                                <div class="stat-value" id="total-size">0 KB</div>
+                                <div class="stat-label">Total Size</div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Bar -->
+                        <div id="progress-container" class="progress-container hidden">
+                            <div class="progress-bar" id="merge-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-cog text-purple-500"></i>
+                            <span>Merge Options</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <!-- Page Numbering -->
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="text-sm text-slate-600 group-hover:text-purple-600 transition">
+                                <i class="fas fa-hashtag mr-2 text-slate-400 group-hover:text-purple-400"></i>
+                                Add page numbers
+                            </span>
+                            <div class="relative">
+                                <input type="checkbox" id="add-pages" checked class="toggle-checkbox">
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </label>
+
+                        <!-- Page Number Position -->
+                        <div id="page-position-container" class="pl-6 border-l-2 border-purple-100">
+                            <label class="block text-xs text-slate-500 mb-2">Position</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button class="position-btn active" data-position="bottom-center">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <button class="position-btn" data-position="top-center">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <button class="position-btn" data-position="bottom-right">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Table of Contents -->
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="text-sm text-slate-600 group-hover:text-purple-600 transition">
+                                <i class="fas fa-list mr-2 text-slate-400 group-hover:text-purple-400"></i>
+                                Generate table of contents
+                            </span>
+                            <div class="relative">
+                                <input type="checkbox" id="add-toc" class="toggle-checkbox">
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </label>
+
+                        <!-- Bookmarks -->
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="text-sm text-slate-600 group-hover:text-purple-600 transition">
+                                <i class="fas fa-bookmark mr-2 text-slate-400 group-hover:text-purple-400"></i>
+                                Preserve bookmarks
+                            </span>
+                            <div class="relative">
+                                <input type="checkbox" id="preserve-bookmarks" checked class="toggle-checkbox">
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </label>
+
+                        <!-- Compression -->
+                        <details class="group">
+                            <summary class="flex items-center justify-between cursor-pointer text-sm text-slate-600 hover:text-purple-600">
+                                <span><i class="fas fa-compress-alt mr-2"></i> Compression settings</span>
+                                <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                            </summary>
+                            <div class="mt-4 space-y-3">
+                                <label class="flex items-center justify-between">
+                                    <span class="text-xs text-slate-500">Compression level</span>
+                                    <span id="compression-value" class="text-xs font-mono bg-slate-100 px-2 py-1 rounded">medium</span>
+                                </label>
+                                <input type="range" id="compression-slider" min="0" max="2" value="1" step="1" class="compression-slider">
+                                <div class="flex justify-between text-xs text-slate-400">
+                                    <span>None</span>
+                                    <span>Medium</span>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Merge Button -->
+                <button onclick="stitchPDFs()" id="stitch-btn" class="merge-btn" disabled>
+                    <span class="btn-content">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Merge Documents</span>
+                    </span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+
+            <!-- Right Panel - File List -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <!-- File List Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-list-ul text-purple-500"></i>
+                            <span>Document Queue</span>
+                        </h3>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-slate-500" id="queue-count">0 items</span>
+                            <button onclick="toggleViewMode()" class="view-toggle-btn">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- File List Container -->
+                    <div id="pdf-list" class="file-list-container">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h4>No documents in queue</h4>
+                            <p>Add PDF files to start merging</p>
+                            <button onclick="document.getElementById('pdf-input').click()" class="empty-state-btn">
+                                <i class="fas fa-plus-circle mr-2"></i>
+                                Browse Files
+                            </button>
+                            <div class="empty-state-hint">
+                                <span>💡 You can select multiple files at once</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Queue Footer -->
+                    <div id="queue-footer" class="hidden bg-slate-50 px-6 py-4 border-t border-slate-200">
+                        <div class="flex items-center justify-between text-sm">
+                            <div class="flex items-center space-x-4">
+                                <span class="text-slate-600">
+                                    <i class="fas fa-files mr-2"></i>
+                                    <span id="footer-file-count">0 files</span>
+                                </span>
+                                <span class="text-slate-600">
+                                    <i class="fas fa-copy mr-2"></i>
+                                    <span id="footer-page-count">0 pages</span>
+                                </span>
+                            </div>
+                            <button onclick="clearAll()" class="text-red-500 hover:text-red-700 transition text-sm">
+                                <i class="fas fa-trash-alt mr-1"></i>
+                                Clear queue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel (expands when file selected) -->
+                <div id="preview-panel" class="hidden mt-6 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h4 class="font-medium text-slate-700">
+                            <i class="fas fa-eye mr-2 text-purple-500"></i>
+                            Document Preview
+                        </h4>
+                        <button onclick="closePreview()" class="text-slate-400 hover:text-slate-600">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-20 h-24 bg-purple-50 rounded-lg border border-purple-100 flex items-center justify-center">
+                                <i class="fas fa-file-pdf text-3xl text-purple-400"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h5 id="preview-filename" class="font-medium text-slate-800 mb-1">document.pdf</h5>
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-xs text-slate-500">Pages</span>
+                                        <p id="preview-pages" class="font-mono">0</p>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs text-slate-500">Size</span>
+                                        <p id="preview-size" class="font-mono">0 KB</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 z-50 hidden"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshotter Pro · Serverless Workbench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Tool Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-indigo-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">tools/screenshotter/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v2.1.0</span>
+                    <div class="h-8 w-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-camera text-indigo-600 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-4 rounded-2xl shadow-lg shadow-indigo-200">
+                        <i class="fas fa-camera-retro text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">Screenshotter Pro</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Capture webpages with precision</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">Headless Playwright</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-magic text-blue-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-purple-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-bolt text-purple-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">real-time preview</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Tool Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <!-- Controls Panel (Left Side) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- URL Input Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-link text-indigo-500"></i>
+                            <span>Target URL</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="url-input-group">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <i class="fas fa-globe text-slate-400"></i>
+                                </div>
+                                <input type="url" 
+                                       id="ss-url" 
+                                       placeholder="https://example.com" 
+                                       class="url-input">
+                            </div>
+                            <button class="url-scan-btn" onclick="scanUrl()" title="Auto-fill metadata">
+                                <i class="fas fa-qrcode"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Quick URL Suggestions -->
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <button onclick="document.getElementById('ss-url').value='https://github.com'" 
+                                    class="quick-url-btn group">
+                                <i class="fab fa-github text-slate-600 group-hover:text-indigo-600"></i>
+                                <span>GitHub</span>
+                            </button>
+                            <button onclick="document.getElementById('ss-url').value='https://stackoverflow.com'" 
+                                    class="quick-url-btn group">
+                                <i class="fab fa-stack-overflow text-slate-600 group-hover:text-indigo-600"></i>
+                                <span>StackOverflow</span>
+                            </button>
+                            <button onclick="document.getElementById('ss-url').value='https://producthunt.com'" 
+                                    class="quick-url-btn group">
+                                <i class="fab fa-product-hunt text-slate-600 group-hover:text-indigo-600"></i>
+                                <span>ProductHunt</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capture Settings Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-sliders-h text-indigo-500"></i>
+                            <span>Capture Settings</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-5">
+                        <!-- Format Selection -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-3">Output Format</label>
+                            <div class="format-selector">
+                                <label class="format-option">
+                                    <input type="radio" name="format" value="PNG" checked class="hidden" onchange="updateFormat('PNG')">
+                                    <div class="format-card active">
+                                        <i class="fas fa-image text-indigo-600"></i>
+                                        <span class="font-medium">PNG</span>
+                                        <span class="text-xs opacity-75">lossless</span>
+                                    </div>
+                                </label>
+                                <label class="format-option">
+                                    <input type="radio" name="format" value="JPEG" class="hidden" onchange="updateFormat('JPEG')">
+                                    <div class="format-card">
+                                        <i class="fas fa-camera text-emerald-600"></i>
+                                        <span class="font-medium">JPEG</span>
+                                        <span class="text-xs opacity-75">compressed</span>
+                                    </div>
+                                </label>
+                                <label class="format-option">
+                                    <input type="radio" name="format" value="PDF" class="hidden" onchange="updateFormat('PDF')">
+                                    <div class="format-card">
+                                        <i class="fas fa-file-pdf text-rose-600"></i>
+                                        <span class="font-medium">PDF</span>
+                                        <span class="text-xs opacity-75">vector</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Viewport Size with Presets -->
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="block text-sm font-medium text-slate-600">Viewport Size</label>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full" id="viewport-display">1920x1080</span>
+                            </div>
+                            
+                            <div class="viewport-presets">
+                                <button type="button" class="preset-btn active" data-width="1920" data-height="1080">
+                                    <i class="fas fa-desktop"></i>
+                                    <span>Desktop</span>
+                                </button>
+                                <button type="button" class="preset-btn" data-width="1366" data-height="768">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>Laptop</span>
+                                </button>
+                                <button type="button" class="preset-btn" data-width="768" data-height="1024">
+                                    <i class="fas fa-tablet-alt"></i>
+                                    <span>Tablet</span>
+                                </button>
+                                <button type="button" class="preset-btn" data-width="375" data-height="812">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Mobile</span>
+                                </button>
+                            </div>
+
+                            <!-- Custom Size Sliders -->
+                            <div class="mt-5 space-y-4">
+                                <div>
+                                    <div class="flex justify-between text-xs text-slate-500 mb-1">
+                                        <span>Width <span id="width-value">1920px</span></span>
+                                        <span class="font-mono">4K</span>
+                                    </div>
+                                    <input type="range" id="width-slider" min="320" max="3840" value="1920" step="10" 
+                                           class="size-slider" oninput="updateDimensions()">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs text-slate-500 mb-1">
+                                        <span>Height <span id="height-value">1080px</span></span>
+                                        <span class="font-mono">Full HD</span>
+                                    </div>
+                                    <input type="range" id="height-slider" min="240" max="2160" value="1080" step="10" 
+                                           class="size-slider" oninput="updateDimensions()">
+                                </div>
+                            </div>
+
+                            <!-- Device Pixel Ratio -->
+                            <div class="mt-5">
+                                <label class="block text-sm font-medium text-slate-600 mb-2">Device Pixel Ratio</label>
+                                <div class="dpr-selector">
+                                    <button class="dpr-btn active" data-dpr="1">1x</button>
+                                    <button class="dpr-btn" data-dpr="2">2x</button>
+                                    <button class="dpr-btn" data-dpr="3">3x</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div class="border-t border-slate-100 pt-5">
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-slate-600 hover:text-indigo-600">
+                                    <span>⚙️ Advanced Options</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-4 space-y-4">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="full-page" class="toggle-checkbox">
+                                        <span class="text-sm text-slate-600">Capture full page (scroll)</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="dark-mode" class="toggle-checkbox">
+                                        <span class="text-sm text-slate-600">Force dark mode</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="remove-ads" class="toggle-checkbox" checked>
+                                        <span class="text-sm text-slate-600">Block ads & trackers</span>
+                                    </label>
+                                    <div>
+                                        <label class="block text-sm text-slate-600 mb-2">Delay (ms)</label>
+                                        <input type="number" id="delay" value="1000" min="0" max="10000" step="100" 
+                                               class="delay-input">
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3">
+                    <button onclick="captureScreenshot()" class="capture-btn group">
+                        <span class="btn-content">
+                            <i class="fas fa-camera-retro"></i>
+                            <span>Capture Screenshot</span>
+                        </span>
+                        <span class="btn-shine"></span>
+                    </button>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="download-screenshot-btn" onclick="downloadScreenshot()" class="download-btn hidden group">
+                            <i class="fas fa-download"></i>
+                            <span>Download</span>
+                            <span class="download-badge" id="download-size"></span>
+                        </button>
+                        <button onclick="resetSettings()" class="reset-btn">
+                            <i class="fas fa-undo-alt"></i>
+                            <span>Reset</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-lightbulb text-indigo-500 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-semibold text-indigo-700 mb-1">Pro Tips</h4>
+                            <ul class="text-xs text-indigo-600 space-y-1">
+                                <li>• Use 2x DPR for retina-quality screenshots</li>
+                                <li>• Add delay for dynamic content loading</li>
+                                <li>• Full page capture works best on long articles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel (Right Side) -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
+                    <!-- Preview Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                                <i class="fas fa-eye text-indigo-500"></i>
+                                <span>Live Preview</span>
+                            </h3>
+                            <span class="preview-badge" id="preview-status">Ready</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button class="preview-toolbar-btn" onclick="zoomIn()" title="Zoom in">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button class="preview-toolbar-btn" onclick="zoomOut()" title="Zoom out">
+                                <i class="fas fa-search-minus"></i>
+                            </button>
+                            <button class="preview-toolbar-btn" onclick="fitToScreen()" title="Fit to screen">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Preview Container -->
+                    <div id="preview-container" class="preview-container">
+                        <div id="ss-result" class="preview-result">
+                            <div class="empty-preview">
+                                <div class="empty-icon">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                                <h4>No screenshot yet</h4>
+                                <p>Configure your settings and click capture to generate a preview</p>
+                                <div class="empty-example">
+                                    <div class="example-device">
+                                        <div class="example-screen"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview Overlay Info -->
+                        <div id="preview-info" class="preview-info hidden">
+                            <div class="info-chip">
+                                <i class="fas fa-image"></i>
+                                <span id="preview-format">PNG</span>
+                            </div>
+                            <div class="info-chip">
+                                <i class="fas fa-ruler"></i>
+                                <span id="preview-dimensions">1920x1080</span>
+                            </div>
+                            <div class="info-chip">
+                                <i class="fas fa-weight"></i>
+                                <span id="preview-size">0 KB</span>
+                            </div>
+                        </div>
+
+                        <!-- Loading Overlay -->
+                        <div id="loading-overlay" class="loading-overlay hidden">
+                            <div class="loading-spinner">
+                                <div class="spinner-ring"></div>
+                                <div class="spinner-ring"></div>
+                                <div class="spinner-ring"></div>
+                            </div>
+                            <p class="loading-text">Capturing screenshot...</p>
+                            <div class="loading-progress">
+                                <div class="progress-bar" id="capture-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Preview Footer -->
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                        <div class="flex items-center space-x-4">
+                            <span><i class="far fa-clock mr-1"></i> <span id="capture-time">Ready</span></span>
+                            <span><i class="fas fa-mouse-pointer mr-1"></i> Click preview to zoom</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-shield-alt text-green-500"></i>
+                            <span>Secure connection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Hint -->
+    <div class="fixed bottom-4 right-4">
+        <button class="shortcuts-hint group" onclick="showShortcuts()">
+            <i class="fas fa-keyboard"></i>
+            <div class="shortcuts-tooltip">
+                <div class="font-medium mb-2">Keyboard Shortcuts</div>
+                <div class="text-xs space-y-1">
+                    <div><kbd>⌘</kbd> + <kbd>Enter</kbd> Capture</div>
+                    <div><kbd>⌘</kbd> + <kbd>S</kbd> Download</div>
+                    <div><kbd>⌘</kbd> + <kbd>0</kbd> Reset</div>
+                </div>
+            </div>
+        </button>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

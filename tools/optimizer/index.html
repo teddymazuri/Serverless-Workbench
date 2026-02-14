@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Optimizer Pro · Serverless Workbench</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-emerald-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">tools/optimizer/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v2.1.0</span>
+                    <div class="h-8 w-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-magic text-emerald-600 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-4 rounded-2xl shadow-lg shadow-emerald-200">
+                        <i class="fas fa-images text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">Image Optimizer Pro</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Smart compression · WebP · AVIF · Real-time preview</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">v2.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-emerald-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-bolt text-emerald-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-blue-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">lossless & lossy</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left Panel - Controls -->
+            <div class="lg:col-span-4 space-y-6">
+                <!-- Upload Area -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-cloud-upload-alt text-emerald-500"></i>
+                            <span>Upload Image</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="dropzone" class="upload-dropzone">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-slate-700 mb-2">Drop your image here</h4>
+                            <p class="text-slate-500 mb-4">or <span class="text-emerald-600 font-medium cursor-pointer hover:underline">browse files</span></p>
+                            <input type="file" id="img-input" class="hidden" accept="image/*">
+                            <div class="upload-formats">
+                                <span class="format-badge">PNG</span>
+                                <span class="format-badge">JPG</span>
+                                <span class="format-badge">WebP</span>
+                                <span class="format-badge">AVIF</span>
+                                <span class="format-badge">GIF</span>
+                            </div>
+                        </div>
+
+                        <!-- Image Preview Thumbnail (shown after upload) -->
+                        <div id="image-preview-thumb" class="hidden mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 bg-white rounded-lg border border-slate-200 overflow-hidden">
+                                    <img id="thumbnail-preview" src="" alt="preview" class="w-full h-full object-cover">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p id="file-name" class="text-sm font-medium text-slate-800 truncate">image.png</p>
+                                    <p id="file-size" class="text-xs text-slate-500">0 KB</p>
+                                </div>
+                                <button onclick="resetUpload()" class="text-slate-400 hover:text-red-500 transition">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optimization Controls -->
+                <div id="optimization-controls" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-sliders-h text-emerald-500"></i>
+                            <span>Optimization Settings</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <!-- Format Selection -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-3">Output Format</label>
+                            <div class="format-selector">
+                                <label class="format-option">
+                                    <input type="radio" name="output-format" value="original" checked class="hidden">
+                                    <div class="format-card active">
+                                        <i class="fas fa-image text-emerald-600"></i>
+                                        <span>Original</span>
+                                    </div>
+                                </label>
+                                <label class="format-option">
+                                    <input type="radio" name="output-format" value="webp" class="hidden">
+                                    <div class="format-card">
+                                        <i class="fas fa-file-image text-blue-600"></i>
+                                        <span>WebP</span>
+                                    </div>
+                                </label>
+                                <label class="format-option">
+                                    <input type="radio" name="output-format" value="avif" class="hidden">
+                                    <div class="format-card">
+                                        <i class="fas fa-file-image text-purple-600"></i>
+                                        <span>AVIF</span>
+                                    </div>
+                                </label>
+                                <label class="format-option">
+                                    <input type="radio" name="output-format" value="jpg" class="hidden">
+                                    <div class="format-card">
+                                        <i class="fas fa-file-image text-amber-600"></i>
+                                        <span>JPEG</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Quality Slider -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-sm font-medium text-slate-600">Quality</label>
+                                <span id="quality-value" class="text-sm font-mono bg-slate-100 px-3 py-1 rounded-full">85%</span>
+                            </div>
+                            <input type="range" id="quality-slider" min="1" max="100" value="85" class="quality-slider">
+                            <div class="flex justify-between text-xs text-slate-400 mt-1">
+                                <span>Smaller</span>
+                                <span>Better quality</span>
+                            </div>
+                        </div>
+
+                        <!-- Resize Options -->
+                        <div>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-slate-600 hover:text-emerald-600">
+                                    <span><i class="fas fa-arrows-alt mr-2"></i> Resize Options</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-4 space-y-4">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="maintain-aspect" class="toggle-checkbox" checked>
+                                        <span class="text-sm text-slate-600">Maintain aspect ratio</span>
+                                    </label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <label class="block text-xs text-slate-500 mb-1">Width (px)</label>
+                                            <input type="number" id="resize-width" value="1200" class="resize-input" min="1">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-slate-500 mb-1">Height (px)</label>
+                                            <input type="number" id="resize-height" value="0" class="resize-input" min="0" placeholder="auto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Advanced Options -->
+                        <div>
+                            <details class="group">
+                                <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-slate-600 hover:text-emerald-600">
+                                    <span><i class="fas fa-cog mr-2"></i> Advanced</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-4 space-y-3">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="strip-metadata" class="toggle-checkbox" checked>
+                                        <span class="text-sm text-slate-600">Strip metadata</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="optimize-for-web" class="toggle-checkbox" checked>
+                                        <span class="text-sm text-slate-600">Optimize for web</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" id="progressive" class="toggle-checkbox">
+                                        <span class="text-sm text-slate-600">Progressive rendering</span>
+                                    </label>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="space-y-3 pt-4 border-t border-slate-200">
+                            <button onclick="optimizeImage()" id="optimize-btn" class="optimize-btn">
+                                <span class="btn-content">
+                                    <i class="fas fa-magic"></i>
+                                    <span>Optimize Image</span>
+                                </span>
+                            </button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="downloadAll()" id="download-all-btn" class="download-all-btn hidden">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download All</span>
+                                </button>
+                                <button onclick="resetAll()" class="reset-optimizer-btn">
+                                    <i class="fas fa-undo-alt"></i>
+                                    <span>Reset</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Card (shown after optimization) -->
+                <div id="stats-card" class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-lg p-6 hidden">
+                    <h4 class="text-white text-sm font-medium mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        Optimization Stats
+                    </h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-white">
+                            <span class="text-sm opacity-90">Original size</span>
+                            <span id="stats-original" class="text-sm font-mono">0 KB</span>
+                        </div>
+                        <div class="flex justify-between text-white">
+                            <span class="text-sm opacity-90">Optimized size</span>
+                            <span id="stats-optimized" class="text-sm font-mono">0 KB</span>
+                        </div>
+                        <div class="flex justify-between text-white">
+                            <span class="text-sm opacity-90">Savings</span>
+                            <span id="stats-savings" class="text-sm font-mono text-emerald-200">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <!-- Results Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-th-large text-emerald-500"></i>
+                            <span>Optimized Variants</span>
+                        </h3>
+                        <div class="flex items-center space-x-2">
+                            <span id="variants-count" class="text-xs text-slate-500">0 variants</span>
+                            <button onclick="toggleViewMode()" class="view-toggle-btn">
+                                <i class="fas fa-th"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Grid -->
+                    <div id="opt-results" class="results-grid">
+                        <div class="empty-results">
+                            <div class="empty-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <h4>No images optimized yet</h4>
+                            <p>Upload an image and click optimize to see results</p>
+                            <div class="empty-suggestion">
+                                <span>✨ Try dropping a high-res photo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Original Info -->
+                    <div id="original-info" class="hidden border-t border-slate-200 p-4 bg-slate-50">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-white rounded-lg border border-slate-200 flex items-center justify-center">
+                                    <i class="fas fa-info-circle text-slate-400"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-slate-700">Original Image</p>
+                                    <p id="original-details" class="text-xs text-slate-500">filename · 0 KB</p>
+                                </div>
+                            </div>
+                            <button onclick="downloadOriginal()" id="download-original" class="text-sm text-emerald-600 hover:text-emerald-700">
+                                <i class="fas fa-download mr-1"></i> Save original
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 z-50 hidden"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

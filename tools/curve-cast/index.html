@@ -9,119 +9,258 @@
     <meta property="og:title" content="CurveCast - Vector Path Studio">
     <meta property="og:description" content="Precision vector path editor with live SVG output">
     
-    <title>CurveCast · Vector Path Studio</title>
+    <title>CurveCast · Vector Path Studio · Serverless Workbench</title>
     
     <!-- Shared Workbench CSS -->
     <link rel="stylesheet" href="../../css/main.css">
     <!-- Tool-specific CSS -->
     <link rel="stylesheet" href="css/style.css">
     
-    <!-- Tailwind (optional, for utility classes) -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- JetBrains Mono for code display -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- ========== FAVICONS ========== -->
+    <link rel="icon" type="image/png" href="../../assets/Serverless-Workbench-favicon.png">
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
+    <!-- Tool Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-3">
-                    <a href="../../index.html" class="flex items-center space-x-3">
-                        <span class="text-3xl">⚡</span>
-                        <span class="font-bold text-xl text-slate-800">serverless<span class="text-indigo-600">/workbench</span></span>
-                    </a>
-                </div>
+            <div class="flex items-center justify-between h-16">
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">curve-cast v1.0</span>
-                    <a href="../../index.html" class="text-slate-600 hover:text-indigo-600 text-sm font-medium transition">← Back to Tools</a>
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-indigo-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">tools/curve-cast/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v1.0</span>
+                    <div class="h-8 w-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-bezier-curve text-indigo-600 text-sm"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Tool Header -->
-    <div class="bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="flex items-center gap-4">
-                <div class="bg-indigo-100 p-3 rounded-xl text-indigo-600 text-3xl">⌘</div>
-                <div>
-                    <h1 class="text-2xl font-bold text-slate-800">CurveCast · Vector Path Studio</h1>
-                    <p class="text-slate-600">Draw curves, cast vectors — live Bézier editor with real-time SVG output</p>
+    <!-- Tool Header Card -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-4 rounded-2xl shadow-lg shadow-indigo-200">
+                        <i class="fas fa-bezier-curve text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">CurveCast · Vector Path Studio</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Draw curves, cast vectors</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">live bézier editor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-mouse-pointer text-blue-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-purple-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-draw-polygon text-purple-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">interactive</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Main Editor Container -->
-    <div id="editor-container">
-        <!-- Canvas Area with Grid -->
-        <div id="canvas-area" class="grid-canvas">
-            <svg id="main-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                <path id="preview-path" class="active-path glow-effect" d=""></path>
-                <path id="ghost-path" class="ghost-line" d=""></path>
-                <g id="controls-group"></g>
-            </svg>
-
-            <!-- Instructions Card -->
-            <div class="instruction-card">
-                <div class="flex items-center gap-2 mb-3">
-                    <div class="live-indicator"></div>
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Live Editor Active</span>
-                </div>
-                <div class="space-y-2 text-xs">
-                    <div class="flex justify-between"><span>New point</span><span class="shortcut-key">left click</span></div>
-                    <div class="flex justify-between"><span>Curve handle</span><span class="shortcut-key">click + drag</span></div>
-                    <div class="flex justify-between"><span>Close path</span><span class="shortcut-key">click start point</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Right Panel: Code & Metrics -->
-        <div id="code-panel">
-            <div class="panel-header">
-                <h3 class="panel-title">Generated SVG Path</h3>
-                <button id="copy-svg" class="tool-button tool-button-primary text-sm !w-auto px-4" title="Copy to clipboard">
-                    <span>📋</span> Copy
-                </button>
-            </div>
-            
-            <div class="code-output-container">
-                <pre id="svg-output" class="code-text">M 0 0</pre>
-                <div class="code-badge">READY</div>
-            </div>
-
-            <!-- Tool Controls -->
-            <div class="tool-controls">
-                <button id="reset-studio" class="tool-button tool-button-secondary text-sm">
-                    <span>↺</span> Reset Canvas
-                </button>
-            </div>
-
-            <!-- Metrics -->
-            <div class="metrics-section">
-                <h4>Path Statistics</h4>
-                <div class="metrics-grid">
-                    <div class="metric-block">
-                        <div class="metric-label">Anchor Points</div>
-                        <div id="point-count" class="metric-value">0</div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <!-- Controls Panel (Left Side) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Drawing Controls Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-pen-nib text-indigo-500"></i>
+                            <span>Drawing Controls</span>
+                        </h3>
                     </div>
-                    <div class="metric-block">
-                        <div class="metric-label">Path Status</div>
-                        <div id="path-closed" class="metric-value status-open">Open</div>
+                    <div class="p-6 space-y-5">
+                        <!-- Quick Actions -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-3">Quick Actions</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button id="new-path-btn" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition">
+                                    <i class="fas fa-file mr-2"></i>New Path
+                                </button>
+                                <button id="close-path-btn" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700 transition">
+                                    <i class="fas fa-link mr-2"></i>Close Path
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Path Style -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-3">Path Style</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button id="style-solid" class="style-btn px-3 py-2 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-medium border-2 border-indigo-300">Solid</button>
+                                <button id="style-dashed" class="style-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700">Dashed</button>
+                                <button id="style-dotted" class="style-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg text-sm font-medium text-slate-700">Dotted</button>
+                            </div>
+                        </div>
+
+                        <!-- Stroke Width -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-sm font-medium text-slate-600">Stroke Width</label>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full" id="stroke-width-display">3.5px</span>
+                            </div>
+                            <input type="range" id="stroke-width" min="1" max="10" value="3.5" step="0.5" class="w-full">
+                        </div>
+
+                        <!-- Color Picker -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-2">Path Color</label>
+                            <div class="flex gap-2">
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-indigo-600" style="background: #1e1b4b" data-color="#1e1b4b"></button>
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-300" style="background: #4f46e5" data-color="#4f46e5"></button>
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-300" style="background: #8b5cf6" data-color="#8b5cf6"></button>
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-300" style="background: #ec4899" data-color="#ec4899"></button>
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-300" style="background: #10b981" data-color="#10b981"></button>
+                                <button class="color-btn w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-300" style="background: #f59e0b" data-color="#f59e0b"></button>
+                            </div>
+                        </div>
+
+                        <!-- Grid Settings -->
+                        <div>
+                            <label class="flex items-center space-x-3 mb-3">
+                                <input type="checkbox" id="snap-to-grid" class="w-4 h-4 text-indigo-600 rounded" checked>
+                                <span class="text-sm text-slate-600">Snap to grid</span>
+                            </label>
+                            <div>
+                                <div class="flex justify-between text-xs text-slate-500 mb-1">
+                                    <span>Grid size</span>
+                                    <span class="font-mono" id="grid-size-display">25px</span>
+                                </div>
+                                <input type="range" id="grid-size" min="10" max="50" value="25" step="5" class="w-full">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Path Info Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-chart-line text-indigo-500"></i>
+                            <span>Path Statistics</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-xl text-center">
+                                <div class="text-xs text-slate-500 mb-1">Points</div>
+                                <div class="text-2xl font-bold text-slate-800" id="point-count">0</div>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl text-center">
+                                <div class="text-xs text-slate-500 mb-1">Status</div>
+                                <div class="text-lg font-bold text-indigo-600" id="path-closed">Open</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3">
+                    <button id="export-svg-btn" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition shadow-lg">
+                        <i class="fas fa-download mr-2"></i>Export SVG
+                    </button>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <button id="copy-svg-btn" class="py-3 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition">
+                            <i class="fas fa-copy mr-2"></i>Copy
+                        </button>
+                        <button id="reset-canvas-btn" class="py-3 bg-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-300 transition">
+                            <i class="fas fa-undo-alt mr-2"></i>Reset
+                        </button>
                     </div>
                 </div>
             </div>
 
+            <!-- Canvas Panel (Right Side) -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <!-- Canvas Header -->
+                    <div class="bg-slate-50 px-6 py-3 border-b border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-eye text-indigo-500"></i>
+                            <span class="font-medium">Vector Canvas</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button id="toggle-handles-btn" class="px-3 py-1 text-xs bg-white border rounded-lg hover:bg-slate-50" title="Toggle handles">
+                                <i class="fas fa-vector-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div id="canvas-wrapper" style="position: relative; width: 100%; height: 500px; background: #ffffff; overflow: hidden;">
+                        <!-- SVG with inline grid pattern -->
+                        <svg id="main-svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="cursor: crosshair; display: block;">
+                            <!-- Grid Pattern Definition -->
+                            <defs>
+                                <pattern id="grid" patternUnits="userSpaceOnUse" width="25" height="25">
+                                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+                                </pattern>
+                            </defs>
+                            
+                            <!-- Grid Rectangle -->
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+                            
+                            <!-- Paths (above grid) -->
+                            <path id="preview-path" fill="none" stroke="#1e1b4b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path id="ghost-path" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="6"/>
+                            <g id="controls-group"></g>
+                        </svg>
+                        
+                        <!-- Coordinates Display -->
+                        <div id="coord-display" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-family: monospace; display: none;">
+                            0, 0
+                        </div>
+                    </div>
+
+                    <!-- Canvas Footer -->
+                    <div class="bg-slate-50 px-6 py-2 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                        <span><i class="far fa-hand-pointer mr-1"></i> Click to add points</span>
+                        <span><i class="fas fa-arrows-alt mr-1"></i> Drag to create curves</span>
+                    </div>
+                </div>
+
+                <!-- Generated Code -->
+                <div class="mt-4 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-3 border-b border-slate-200">
+                        <h3 class="font-medium flex items-center">
+                            <i class="fas fa-code text-indigo-500 mr-2"></i>
+                            Generated SVG Path
+                        </h3>
+                    </div>
+                    <div class="p-4 bg-slate-900">
+                        <pre id="svg-output" class="text-indigo-300 font-mono text-sm whitespace-pre-wrap break-all">M 0 0</pre>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-slate-200 mt-8 py-4 text-center text-xs text-slate-500">
-        <p>CurveCast — precision vector editing. Part of the Serverless Workbench ecosystem.</p>
-    </footer>
-
-    <!-- Tool-specific JavaScript -->
     <script src="js/app.js"></script>
 </body>
 </html>

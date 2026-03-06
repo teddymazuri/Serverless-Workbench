@@ -35,8 +35,6 @@
     <meta name="twitter:image" content="https://teddymazuri.github.io/Serverless-Workbench/assets/social-preview.png">
     <meta name="twitter:image:alt" content="Serverless-Workbench: Serverless Tools for Builders and Dreamers.">
 
-
-
     <title>Serverless Workbench | Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/main.css">
@@ -61,7 +59,7 @@
                         class="text-indigo-600 border-b-2 border-indigo-600 px-1 py-2 text-sm font-medium">Home</a>
                     <a href="#tools"
                         class="text-slate-600 hover:text-indigo-600 px-1 py-2 text-sm font-medium transition">Tools</a>
-                    <a href="#about"
+                    <a href="#structure"
                         class="text-slate-600 hover:text-indigo-600 px-1 py-2 text-sm font-medium transition">About</a>
                 </div>
                 <div class="text-sm text-slate-400 bg-slate-100 px-3 py-1 rounded-full">v1.0</div>
@@ -91,94 +89,110 @@
         </div>
     </section>
 
-    <!-- Tools Grid -->
+    <!-- Tools Section with Slider -->
     <section id="tools" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="text-3xl font-bold text-center text-slate-800 mb-12">Available Tools</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Tool Card 1: Screenshotter -->
-            <div
-                class="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
-                <div class="h-2 bg-indigo-500"></div>
-                <div class="p-8">
-                    <div
-                        class="bg-indigo-50 w-16 h-16 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        📸</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Screenshotter</h3>
-                    <p class="text-slate-600 mb-6">Capture any URL with headless Playwright. Supports PNG, JPEG, PDF
-                        with multiple viewports.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full">headless-playwright</span>
-                        <a href="tools/screenshotter/"
-                            class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1">
-                            Launch tool <span class="text-lg">→</span>
-                        </a>
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-bold text-slate-800">Available Tools</h2>
+            <div class="flex gap-2">
+                <button id="scroll-left" class="slider-nav-btn" aria-label="Scroll left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button id="scroll-right" class="slider-nav-btn" aria-label="Scroll right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Slider Container -->
+        <div class="relative">
+            <!-- Gradient Overlays -->
+            <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+            
+            <!-- Scrollable Cards Container -->
+            <div id="tools-slider" class="flex overflow-x-auto gap-6 pb-6 scrollbar-hide scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <!-- Tool Card 1: Screenshotter -->
+                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-indigo-500"></div>
+                    <div class="p-6">
+                        <div class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            📸</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Screenshotter</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Capture any URL with headless Playwright. Supports PNG, JPEG, PDF with multiple viewports.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">headless-playwright</span>
+                            <a href="tools/screenshotter/" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 2: Optimizer -->
+                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-emerald-500"></div>
+                    <div class="p-6">
+                        <div class="bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            🖼️</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Image Optimizer</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">On-the-fly image transformation. Generate thumbnails, WebP, and blurred placeholders instantly.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">client-side</span>
+                            <a href="tools/optimizer/" class="text-emerald-600 hover:text-emerald-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 3: Stitcher -->
+                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-purple-500"></div>
+                    <div class="p-6">
+                        <div class="bg-purple-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            📑</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">PDF Stitcher</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Merge PDF documents, add page numbers, and reorder pages — all in the browser.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">pdf-lib</span>
+                            <a href="tools/stitcher/" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 4: CurveCast -->
+                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-indigo-500"></div>
+                    <div class="p-6">
+                        <div class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            ⌘</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">CurveCast</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Vector path studio with live Bézier curve editing and real-time SVG output.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">svg · vector</span>
+                            <a href="tools/curve-cast/" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for future tools -->
+                <div class="flex-none w-80 group bg-white/50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="p-6 flex flex-col items-center justify-center h-full min-h-[220px]">
+                        <div class="text-4xl mb-3 opacity-50">➕</div>
+                        <h3 class="text-lg font-bold text-slate-400 mb-1">More Tools</h3>
+                        <p class="text-sm text-slate-400 text-center">Coming soon to your workbench</p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Tool Card 2: Optimizer -->
-            <div
-                class="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
-                <div class="h-2 bg-emerald-500"></div>
-                <div class="p-8">
-                    <div
-                        class="bg-emerald-50 w-16 h-16 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        🖼️</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">Image Optimizer</h3>
-                    <p class="text-slate-600 mb-6">On-the-fly image transformation. Generate thumbnails, WebP, and
-                        blurred placeholders instantly.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full">client-side</span>
-                        <a href="tools/optimizer/"
-                            class="text-emerald-600 hover:text-emerald-800 font-medium inline-flex items-center gap-1">
-                            Launch tool <span class="text-lg">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tool Card 3: Stitcher -->
-            <div
-                class="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
-                <div class="h-2 bg-purple-500"></div>
-                <div class="p-8">
-                    <div
-                        class="bg-purple-50 w-16 h-16 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        📑</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">PDF Stitcher</h3>
-                    <p class="text-slate-600 mb-6">Merge PDF documents, add page numbers, and reorder pages — all in the
-                        browser.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full">pdf-lib</span>
-                        <a href="tools/stitcher/"
-                            class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center gap-1">
-                            Launch tool <span class="text-lg">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tool Card 4: CurveCast -->
-            <div
-                class="group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
-                <div class="h-2 bg-indigo-500"></div>
-                <div class="p-8">
-                    <div
-                        class="bg-indigo-50 w-16 h-16 rounded-xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform">
-                        ⌘</div>
-                    <h3 class="text-xl font-bold text-slate-800 mb-3">CurveCast</h3>
-                    <p class="text-slate-600 mb-6">Vector path studio with live Bézier curve editing and real-time SVG
-                        output.</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-mono bg-slate-100 px-3 py-1 rounded-full">svg · vector</span>
-                        <a href="tools/curve-cast/"
-                            class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1">
-                            Launch tool <span class="text-lg">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Scroll Indicators (dots) -->
+        <div class="flex justify-center gap-2 mt-6" id="scroll-indicators">
+            <!-- Dots will be generated by JavaScript -->
         </div>
     </section>
 
@@ -203,8 +217,14 @@
     │       └── app.js
     ├── optimizer/
     │   └── ...
-    └── stitcher/
-        └── ...</pre>
+    ├── stitcher/
+    │   └── ...
+    └── curve-cast/
+        ├── index.html
+        ├── css/
+        │   └── style.css
+        └── js/
+            └── app.js</pre>
                 </div>
             </div>
             <div class="space-y-4">

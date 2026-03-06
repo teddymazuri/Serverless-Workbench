@@ -488,3 +488,87 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--gray-500);
 }
+
+/* ===== Slider/Tool Cards Styles ===== */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Card hover effects */
+.group:hover .line-clamp-2 {
+    color: var(--gray-700);
+}
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 2;
+}
+
+/* Gradient overlays for slider edges */
+.slider-gradient-left {
+    background: linear-gradient(to right, var(--gray-50), transparent);
+}
+
+.slider-gradient-right {
+    background: linear-gradient(to left, var(--gray-50), transparent);
+}
+
+/* Scroll indicators */
+.scroll-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: var(--gray-300);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.scroll-indicator.active {
+    width: 24px;
+    background-color: var(--primary-600);
+}
+
+.scroll-indicator:hover {
+    background-color: var(--primary-400);
+}
+
+/* Slider buttons */
+.slider-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: white;
+    border: 1px solid var(--gray-200);
+    color: var(--gray-600);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.slider-nav-btn:hover:not(:disabled) {
+    border-color: var(--primary-300);
+    color: var(--primary-600);
+    transform: scale(1.05);
+}
+
+.slider-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive card width */
+@media (max-width: 640px) {
+    .flex-none.w-80 {
+        width: 260px;
+    }
+}

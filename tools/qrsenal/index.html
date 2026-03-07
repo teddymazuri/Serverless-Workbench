@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Social Preview -->
+    <meta name="description" content="QRsenal - Your complete arsenal of QR code tools. Generate and scan QR codes with style.">
+    <meta property="og:title" content="QRsenal - QR Code Generator & Scanner">
+    <meta property="og:description" content="Generate customizable QR codes or scan existing ones - all in your browser">
+    
+    <title>QRsenal · QR Code Arsenal · Serverless Workbench</title>
+    
+    <!-- Shared Workbench CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <!-- Tool-specific CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- QR Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <!-- ========== FAVICONS ========== -->
+    <link rel="icon" type="image/png" href="../../assets/Serverless-Workbench-favicon.png">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Tool Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-indigo-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">tools/qrsenal/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v1.0</span>
+                    <div class="h-8 w-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-qrcode text-indigo-600 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Header Card -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-4 rounded-2xl shadow-lg shadow-indigo-200">
+                        <i class="fas fa-qrcode text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">QRsenal · QR Code Arsenal</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Generate & scan QR codes</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">client-side</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-pen-fancy text-blue-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-purple-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-camera text-purple-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">dual-mode</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Tool Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <!-- Controls Panel (Left Side) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Mode Selector Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-bolt text-indigo-500"></i>
+                            <span>Mode Selector</span>
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="format-selector">
+                            <label class="format-option flex-1">
+                                <input type="radio" name="mode" value="generate" checked class="hidden" onchange="switchMode('generate')">
+                                <div class="format-card active">
+                                    <i class="fas fa-pen-fancy text-indigo-600"></i>
+                                    <span class="font-medium">Generate</span>
+                                    <span class="text-xs opacity-75">create QR</span>
+                                </div>
+                            </label>
+                            <label class="format-option flex-1">
+                                <input type="radio" name="mode" value="scan" class="hidden" onchange="switchMode('scan')">
+                                <div class="format-card">
+                                    <i class="fas fa-camera text-emerald-600"></i>
+                                    <span class="font-medium">Scan</span>
+                                    <span class="text-xs opacity-75">read QR</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generator Controls (shown in generate mode) -->
+                <div id="generator-controls" class="space-y-6">
+                    <!-- Content Input Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                            <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                                <i class="fas fa-pencil-alt text-indigo-500"></i>
+                                <span>Content</span>
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <textarea id="qr-input" rows="4" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-sm" placeholder="Enter URL, phone number, text, or any data..."></textarea>
+                            
+                            <!-- Quick Templates -->
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <button onclick="insertTemplate('url')" class="quick-url-btn">
+                                    <i class="fas fa-link"></i>
+                                    <span>URL</span>
+                                </button>
+                                <button onclick="insertTemplate('phone')" class="quick-url-btn">
+                                    <i class="fas fa-phone"></i>
+                                    <span>Phone</span>
+                                </button>
+                                <button onclick="insertTemplate('email')" class="quick-url-btn">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Email</span>
+                                </button>
+                                <button onclick="insertTemplate('text')" class="quick-url-btn">
+                                    <i class="fas fa-paragraph"></i>
+                                    <span>Plain Text</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Style Settings Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                            <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                                <i class="fas fa-palette text-indigo-500"></i>
+                                <span>Style Settings</span>
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-5">
+                            <!-- QR Color -->
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600 mb-3">QR Color</label>
+                                <div class="flex items-center gap-4">
+                                    <input type="color" id="qr-color" value="#1e1b4b" class="w-16 h-10 rounded-lg border-2 border-slate-200 cursor-pointer">
+                                    <div class="flex gap-2 flex-wrap">
+                                        <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #1e1b4b" data-color="#1e1b4b"></button>
+                                        <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #4f46e5" data-color="#4f46e5"></button>
+                                        <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #8b5cf6" data-color="#8b5cf6"></button>
+                                        <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #10b981" data-color="#10b981"></button>
+                                        <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #f59e0b" data-color="#f59e0b"></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Size Selection -->
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600 mb-3">Size</label>
+                                <div class="format-selector">
+                                    <label class="format-option">
+                                        <input type="radio" name="size" value="128" class="hidden" onchange="updateQR()">
+                                        <div class="format-card">
+                                            <i class="fas fa-compress text-slate-600"></i>
+                                            <span class="font-medium">Small</span>
+                                            <span class="text-xs opacity-75">128px</span>
+                                        </div>
+                                    </label>
+                                    <label class="format-option">
+                                        <input type="radio" name="size" value="256" checked class="hidden" onchange="updateQR()">
+                                        <div class="format-card active">
+                                            <i class="fas fa-expand text-indigo-600"></i>
+                                            <span class="font-medium">Medium</span>
+                                            <span class="text-xs opacity-75">256px</span>
+                                        </div>
+                                    </label>
+                                    <label class="format-option">
+                                        <input type="radio" name="size" value="512" class="hidden" onchange="updateQR()">
+                                        <div class="format-card">
+                                            <i class="fas fa-expand-arrows-alt text-slate-600"></i>
+                                            <span class="font-medium">Large</span>
+                                            <span class="text-xs opacity-75">512px</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Error Correction -->
+                            <div>
+                                <label class="block text-sm font-medium text-slate-600 mb-3">Error Correction</label>
+                                <select id="qr-error" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" onchange="updateQR()">
+                                    <option value="L">Low (7%) - Best capacity</option>
+                                    <option value="M" selected>Medium (15%) - Balanced</option>
+                                    <option value="Q">Quartile (25%) - Good durability</option>
+                                    <option value="H">High (30%) - Best durability</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scanner Controls (hidden by default) -->
+                <div id="scanner-controls" class="hidden space-y-6">
+                    <!-- Scanner Info Card -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                            <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                                <i class="fas fa-camera text-indigo-500"></i>
+                                <span>Scanner Status</span>
+                            </h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div id="scanner-status-indicator" class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                                <span id="scanner-status-text" class="text-sm text-slate-600">Camera active - point at a QR code</span>
+                            </div>
+                            
+                            <button id="restart-scanner" class="w-full py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-redo-alt"></i>
+                                Restart Scanner
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scan Result Card -->
+                    <div id="scan-result-card" class="hidden bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="bg-emerald-50 px-6 py-4 border-b border-emerald-200">
+                            <h3 class="font-semibold text-emerald-700 flex items-center space-x-2">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Scan Result</span>
+                            </h3>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="p-4 bg-slate-50 rounded-xl">
+                                <p id="scan-result" class="text-slate-800 break-all font-mono text-sm"></p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="copyScanResult()" class="py-3 bg-slate-800 text-white rounded-xl font-medium hover:bg-slate-900 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-copy"></i>
+                                    Copy
+                                </button>
+                                <button onclick="useAsInput()" class="py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+                                    <i class="fas fa-pen"></i>
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div id="generate-actions" class="space-y-3">
+                    <button id="download-qr" class="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg flex items-center justify-center gap-2">
+                        <i class="fas fa-download"></i>
+                        Download QR Code
+                    </button>
+                </div>
+
+                <div id="scan-actions" class="hidden space-y-3">
+                    <button id="copy-scan-btn" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-bold hover:from-emerald-700 hover:to-teal-700 transition-all shadow-lg flex items-center justify-center gap-2">
+                        <i class="fas fa-copy"></i>
+                        Copy Scanned Content
+                    </button>
+                </div>
+            </div>
+
+            <!-- Preview Panel (Right Side) -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden sticky top-24">
+                    <!-- Preview Header -->
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-eye text-indigo-500"></i>
+                            <span class="font-medium">QR Code Preview</span>
+                        </div>
+                        <span id="mode-badge" class="preview-badge">Generate Mode</span>
+                    </div>
+
+                    <!-- Preview Area -->
+                    <div id="generate-preview" class="p-8 flex flex-col items-center justify-center min-h-[400px]">
+                        <div id="qrcode" class="flex justify-center"></div>
+                        <p id="qr-placeholder" class="text-slate-400 italic mt-4">Enter content above to generate QR code</p>
+                    </div>
+
+                    <!-- Scanner Preview (hidden by default) -->
+                    <div id="scan-preview" class="hidden p-8 flex flex-col items-center justify-center min-h-[400px]">
+                        <div class="relative rounded-2xl overflow-hidden bg-black w-full max-w-sm mx-auto shadow-inner">
+                            <div id="reader" class="w-full"></div>
+                        </div>
+                        
+                        <div class="mt-6 text-center">
+                            <p class="text-sm text-slate-500 flex items-center justify-center gap-2">
+                                <i class="fas fa-info-circle"></i>
+                                Position QR code within the frame
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Preview Footer -->
+                    <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                        <div class="flex items-center space-x-4">
+                            <span><i class="fas fa-shield-alt mr-1"></i> Client-side only</span>
+                            <span><i class="fas fa-bolt mr-1"></i> Instant generation</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-qrcode text-indigo-500"></i>
+                            <span>v1.0.0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full opacity-0 pointer-events-none transition-opacity duration-300 shadow-xl z-50 flex items-center gap-2">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- Tool-specific JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

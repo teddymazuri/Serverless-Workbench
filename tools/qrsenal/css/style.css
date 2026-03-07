@@ -1,0 +1,197 @@
+/* ===== QRSENAL STYLES ===== */
+:root {
+    --grid-size: 40px;
+    --grid-color: #f1f5f9;
+}
+
+/* QR Code Container */
+#qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280px;
+}
+
+#qrcode img {
+    margin: 0 auto;
+    border: 8px solid white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+#qrcode img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.3);
+}
+
+/* Format Selector (matching workbench style) */
+.format-selector {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.format-option {
+    cursor: pointer;
+}
+
+.format-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 8px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.format-card i {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.format-card span:last-child {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.format-card.active {
+    border-color: #6366f1;
+    background: #eef2ff;
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.3);
+}
+
+.format-card.active i {
+    color: #6366f1;
+}
+
+.format-card.active span {
+    color: #6366f1;
+}
+
+/* Quick URL Buttons (reusing from screenshotter) */
+.quick-url-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.quick-url-btn:hover {
+    background: white;
+    border-color: #6366f1;
+    color: #6366f1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+/* Color Presets */
+.color-preset {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.color-preset:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.color-preset.active {
+    border-color: #6366f1 !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Scanner Container */
+#reader {
+    width: 100% !important;
+    aspect-ratio: 1/1;
+    background: #000;
+}
+
+#reader video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+#reader__scan_region {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#reader__dashboard {
+    display: none !important; /* Hide default controls */
+}
+
+/* Preview Badge */
+.preview-badge {
+    padding: 4px 10px;
+    background: #eef2ff;
+    color: #6366f1;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Scanner Status */
+#scanner-status-indicator {
+    transition: background-color 0.3s ease;
+}
+
+/* Size selector specific */
+.format-card .fa-compress,
+.format-card .fa-expand,
+.format-card .fa-expand-arrows-alt {
+    font-size: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .format-selector {
+        grid-template-columns: 1fr;
+    }
+    
+    .format-card {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    #generate-preview,
+    #scan-preview {
+        min-height: 350px;
+        padding: 16px;
+    }
+}
+
+/* Animation */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.animate-pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Toast notification */
+#toast {
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -41,7 +41,7 @@
 
     <!-- ========== FONT AWESOME =========== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+
     <!-- ========== FAVICONS ========== -->
     <link rel="icon" type="image/png" href="assets/Serverless-Workbench-favicon.png">
 
@@ -53,7 +53,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-3">
-                    <span class="text-3xl"><img src="assets/Serverless-Workbench-favicon.png" height="70px" width="70px"></span>
+                    <span class="text-3xl"><img src="assets/Serverless-Workbench-favicon.png" height="70px"
+                            width="70px"></span>
                     <span class="font-bold text-xl text-slate-800">serverless<span
                             class="text-indigo-600">/workbench</span></span>
                 </div>
@@ -98,33 +99,49 @@
             <h2 class="text-3xl font-bold text-slate-800">Available Tools</h2>
             <div class="flex gap-2">
                 <button id="scroll-left" class="slider-nav-btn" aria-label="Scroll left">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
                 </button>
                 <button id="scroll-right" class="slider-nav-btn" aria-label="Scroll right">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
                 </button>
             </div>
         </div>
-        
+
         <!-- Slider Container -->
         <div class="relative">
             <!-- Gradient Overlays -->
-            <div class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
-            
+            <div
+                class="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none">
+            </div>
+            <div
+                class="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none">
+            </div>
+
             <!-- Scrollable Cards Container -->
-            <div id="tools-slider" class="flex overflow-x-auto gap-6 pb-6 scrollbar-hide scroll-smooth" style="scrollbar-width: none; -ms-overflow-style: none;">
+            <div id="tools-slider" class="flex overflow-x-auto gap-6 pb-6 scrollbar-hide scroll-smooth"
+                style="scrollbar-width: none; -ms-overflow-style: none;">
                 <!-- Tool Card 1: Screenshotter -->
-                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
                     <div class="h-2 bg-indigo-500"></div>
                     <div class="p-6">
-                        <div class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <div
+                            class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
                             📸</div>
                         <h3 class="text-lg font-bold text-slate-800 mb-2">Screenshotter</h3>
-                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Capture any URL with headless Playwright. Supports PNG, JPEG, PDF with multiple viewports.</p>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Capture any URL with headless Playwright.
+                            Supports PNG, JPEG, PDF with multiple viewports.</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">headless-playwright</span>
-                            <a href="tools/screenshotter/" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                            <span
+                                class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">headless-playwright</span>
+                            <a href="tools/screenshotter/"
+                                class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
                                 Launch <span class="text-lg">→</span>
                             </a>
                         </div>
@@ -132,16 +149,20 @@
                 </div>
 
                 <!-- Tool Card 2: Optimizer -->
-                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
                     <div class="h-2 bg-emerald-500"></div>
                     <div class="p-6">
-                        <div class="bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <div
+                            class="bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
                             🖼️</div>
                         <h3 class="text-lg font-bold text-slate-800 mb-2">Image Optimizer</h3>
-                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">On-the-fly image transformation. Generate thumbnails, WebP, and blurred placeholders instantly.</p>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">On-the-fly image transformation. Generate
+                            thumbnails, WebP, and blurred placeholders instantly.</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">client-side</span>
-                            <a href="tools/optimizer/" class="text-emerald-600 hover:text-emerald-800 font-medium inline-flex items-center gap-1 text-sm">
+                            <a href="tools/optimizer/"
+                                class="text-emerald-600 hover:text-emerald-800 font-medium inline-flex items-center gap-1 text-sm">
                                 Launch <span class="text-lg">→</span>
                             </a>
                         </div>
@@ -149,16 +170,20 @@
                 </div>
 
                 <!-- Tool Card 3: Stitcher -->
-                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
                     <div class="h-2 bg-purple-500"></div>
                     <div class="p-6">
-                        <div class="bg-purple-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <div
+                            class="bg-purple-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
                             📑</div>
                         <h3 class="text-lg font-bold text-slate-800 mb-2">PDF Stitcher</h3>
-                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Merge PDF documents, add page numbers, and reorder pages — all in the browser.</p>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Merge PDF documents, add page numbers, and
+                            reorder pages — all in the browser.</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">pdf-lib</span>
-                            <a href="tools/stitcher/" class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center gap-1 text-sm">
+                            <a href="tools/stitcher/"
+                                class="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center gap-1 text-sm">
                                 Launch <span class="text-lg">→</span>
                             </a>
                         </div>
@@ -166,17 +191,43 @@
                 </div>
 
                 <!-- Tool Card 4: CurveCast -->
-                <div class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
                     <div class="h-2 bg-indigo-500"></div>
                     <div class="p-6">
-                        <div class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                        <div
+                            class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
                             <i class="fas fa-bezier-curve"></i>
                         </div>
                         <h3 class="text-lg font-bold text-slate-800 mb-2">CurveCast</h3>
-                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Vector path studio with live Bézier curve editing and real-time SVG output.</p>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Vector path studio with live Bézier curve
+                            editing and real-time SVG output.</p>
                         <div class="flex items-center justify-between">
                             <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">svg · vector</span>
-                            <a href="tools/curve-cast/" class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                            <a href="tools/curve-cast/"
+                                class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 5: SignaTrace -->
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-indigo-500"></div>
+                    <div class="p-6">
+                        <div
+                            class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            ✍️</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">SignaTrace</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Digital signature maker - draw, customize,
+                            and export your signature as PNG with professional tools.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">canvas ·
+                                signature</span>
+                            <a href="tools/signatrace/"
+                                class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
                                 Launch <span class="text-lg">→</span>
                             </a>
                         </div>
@@ -184,7 +235,8 @@
                 </div>
 
                 <!-- Placeholder for future tools -->
-                <div class="flex-none w-80 group bg-white/50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden transition-all duration-300">
+                <div
+                    class="flex-none w-80 group bg-white/50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden transition-all duration-300">
                     <div class="p-6 flex flex-col items-center justify-center h-full min-h-[220px]">
                         <div class="text-4xl mb-3 opacity-50">➕</div>
                         <h3 class="text-lg font-bold text-slate-400 mb-1">More Tools</h3>

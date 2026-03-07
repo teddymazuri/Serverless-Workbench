@@ -10,32 +10,32 @@ https://teddymazuri.github.io/Serverless-Workbench/
 
 # Overview
 
-Serverless Workbench is designed to provide practical tools for developers, builders, designers, and everyday users — without relying on traditional backend infrastructure.
+Serverless Workbench provides practical tools for developers, designers, builders, and everyday users — all without requiring traditional backend infrastructure.
 
-All tools are designed to work directly in the browser using **HTML, CSS, and JavaScript**, allowing the entire platform to be deployed on static hosting platforms such as:
+Every utility is designed to run directly in the browser using **HTML, CSS, and JavaScript**, allowing the entire platform to be deployed easily on static hosting platforms such as:
 
 - GitHub Pages
 - Vercel
 - Netlify
 - Cloudflare Pages
-- Any static web host
+- Any static web server
 
-The goal of the project is to demonstrate how useful software utilities can be built using **pure client-side architecture**.
+This project demonstrates how useful tools can be created using **pure client-side architecture**.
 
 ---
 
 # Philosophy
 
-Serverless Workbench follows a few key principles:
+Serverless Workbench follows a few guiding principles:
 
 - **Serverless by design**
 - **Minimal dependencies**
 - **Fast load times**
 - **Modular architecture**
 - **Portable deployment**
-- **Practical everyday tools**
+- **Useful everyday utilities**
 
-Each tool is built independently so the workbench can grow organically without introducing complexity.
+Each tool is independent and modular, allowing the workbench to expand gradually without adding unnecessary complexity.
 
 ---
 
@@ -47,41 +47,42 @@ Capture screenshots of webpages directly from the browser.
 Features:
 - Quick webpage capture
 - Simple browser interface
-- Instant output
+- Instant results
 
 ---
 
 ## Image Optimizer
-Compress and optimize images for faster web performance.
+Compress and optimize images for better web performance.
 
 Features:
-- Reduce file size
+- Reduce image file sizes
 - Maintain visual quality
 - Useful for web developers and designers
 
 ---
 
 ## PDF Stitcher
-Combine multiple PDF files into a single document.
+Merge multiple PDF documents into a single file.
 
 Features:
-- Merge multiple PDFs
-- Browser-based processing
-- No file uploads required
+- Combine multiple PDFs
+- Simple browser-based workflow
+- No server processing required
 
 ---
 
 ## Curve Cast
-A browser-based **vector path studio** for working with SVG curves.
+A browser-based **vector path studio** designed for working with SVG curves.
 
 Features:
 
 - Live Bézier curve editing
 - Real-time SVG output
-- Interactive control points
-- Visual curve manipulation
+- Interactive curve manipulation
+- Visual control point editing
 
-This tool is useful for:
+Useful for:
+
 - SVG designers
 - UI designers
 - Developers working with vector graphics
@@ -93,13 +94,14 @@ A lightweight browser-based **signature capture and tracing tool**.
 
 Features:
 
-- Draw and capture digital signatures
+- Draw digital signatures
 - Trace signature paths
-- Canvas-based signature editing
-- Export signature graphics
-- Works entirely in the browser
+- Canvas-based editing
+- Export signatures as images
+- Runs entirely in the browser
 
-SignaTrace is useful for:
+Use cases:
+
 - Digital signature prototyping
 - Document workflows
 - Graphic tracing
@@ -107,44 +109,67 @@ SignaTrace is useful for:
 
 ---
 
+## Qrsenal
+A lightweight browser-based **QR code generator and utility tool**.
+
+Features:
+
+- Generate QR codes instantly
+- Supports URLs, text, and other data formats
+- Download QR codes as images
+- Fully client-side processing
+- No data leaves the browser
+
+Useful for:
+
+- Sharing links quickly
+- Marketing materials
+- Event access codes
+- Personal utilities
+
+---
+
 # Key Features
 
-- ⚡ Fully **serverless**
+- ⚡ **Fully serverless**
 - 🧩 **Modular tools**
-- 🌐 Runs entirely **in the browser**
+- 🌐 **Runs entirely in the browser**
 - 🚀 **Instant deployment**
 - 📦 **No installation required**
+- 🔒 **Client-side processing**
 
-Every tool runs independently, allowing the platform to expand without introducing dependencies between modules.
+Every tool runs independently, allowing the workbench to grow without introducing dependencies between utilities.
 
 ---
 
 # Tech Stack
 
-Serverless Workbench uses a minimal stack:
+Serverless Workbench uses a minimal and modern stack:
 
 - **HTML5**
 - **CSS3**
 - **Vanilla JavaScript**
 - **SVG**
 - **Canvas API**
-- Static Hosting
+- Static hosting platforms
 
-No backend services are required.
+No backend infrastructure is required.
 
 ---
 
 # Deployment
 
-Because the platform is serverless and static, deployment is simple.
+Because the project is fully static, deployment is extremely simple.
 
-You can deploy it using:
+You can deploy Serverless Workbench on:
 
 - GitHub Pages
 - Vercel
 - Netlify
 - Cloudflare Pages
-- Any static web server
+- Any static hosting provider
+
+Simply upload the files and the platform works instantly.
 
 ---
 
@@ -159,27 +184,28 @@ Serverless-Workbench
 │   ├── image-optimizer
 │   ├── pdf-stitcher
 │   ├── curve-cast
-│   └── signatrace
+│   ├── signatrace
+│   └── qrsenal
 │
 ├── css/
 ├── js/
 └── assets/
 ```
 
-Each tool lives in its own module and can be extended independently.
+Each tool lives in its own directory and can be extended independently.
 
 ---
 
 # Roadmap
 
-Planned future additions include:
+Planned future additions may include:
 
 - File conversion tools
-- Additional image utilities
+- Image editing utilities
 - SVG design tools
 - AI-assisted utilities
+- Additional developer-focused tools
 - UI improvements across the platform
-- Additional developer-focused utilities
 
 ---
 
@@ -187,7 +213,7 @@ Planned future additions include:
 
 Contributions are welcome.
 
-You can help by:
+You can contribute by:
 
 - Suggesting new tools
 - Improving existing utilities
@@ -197,17 +223,17 @@ You can help by:
 
 ---
 
+# Author
+
+Created by **Teddy Mazuri**
+
+---
+
 # License
 
 This project is open source.
 
-You are free to fork, modify, and build upon the project.
-
----
-
-# Author
-
-Created by **Teddy Mazuri**
+Feel free to fork, modify, and build upon the project.
 
 ---
 

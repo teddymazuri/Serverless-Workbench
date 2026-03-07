@@ -234,6 +234,27 @@
                     </div>
                 </div>
 
+                <!-- Tool Card 6: QRsenal -->
+                <div
+                    class="flex-none w-80 group bg-white rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 overflow-hidden transition-all duration-300">
+                    <div class="h-2 bg-indigo-500"></div>
+                    <div class="p-6">
+                        <div
+                            class="bg-indigo-50 w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
+                            📱</div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">QRsenal</h3>
+                        <p class="text-sm text-slate-600 mb-4 line-clamp-2">Your complete arsenal of QR code tools -
+                            generate with style or scan instantly.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full">qr · scanner</span>
+                            <a href="tools/qrsenal/"
+                                class="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1 text-sm">
+                                Launch <span class="text-lg">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Placeholder for future tools -->
                 <div
                     class="flex-none w-80 group bg-white/50 rounded-2xl border-2 border-dashed border-slate-200 overflow-hidden transition-all duration-300">
@@ -312,28 +333,29 @@
         </div>
     </section>
 
-        <!-- Footer with Donate Button -->
+    <!-- Footer with Donate Button -->
     <footer class="border-t border-slate-200 mt-20 py-8 text-center text-sm text-slate-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center justify-center space-y-4">
                 <p>Serverless Workbench — open architecture for serverless tools. MIT Licensed.</p>
-                
+
                 <!-- PayPal Donate Form -->
                 <form action="https://www.paypal.com/donate" method="post" target="_blank">
                     <input type="hidden" name="business" value="teddymazuri@gmail.com">
                     <input type="hidden" name="currency_code" value="USD">
                     <input type="hidden" name="item_name" value="Serverless Workbench Development">
                     <input type="hidden" name="return" value="https://teddymazuri.github.io/Serverless-Workbench/">
-                    <input type="hidden" name="cancel_return" value="https://teddymazuri.github.io/Serverless-Workbench/">
+                    <input type="hidden" name="cancel_return"
+                        value="https://teddymazuri.github.io/Serverless-Workbench/">
 
                     <button type="submit"
                         class="glass px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 hover:bg-indigo-600 border border-indigo-300 text-indigo-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-lg group">
-                        <i class="fab fa-paypal text-lg"></i> 
+                        <i class="fab fa-paypal text-lg"></i>
                         <span>Support the Workbench</span>
                         <i class="fas fa-heart text-pink-400 text-xs"></i>
                     </button>
                 </form>
-                
+
                 <p class="text-xs text-slate-400">
                     Your donation helps maintain and develop new tools for the community.
                 </p>

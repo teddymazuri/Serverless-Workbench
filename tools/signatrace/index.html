@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Social Preview -->
+    <meta name="description" content="Digital signature maker - draw, customize, and export your signature as PNG">
+    <meta property="og:title" content="SignaTrace - Digital Signature Maker">
+    <meta property="og:description" content="Create professional digital signatures with customizable pen styles">
+    
+    <title>SignaTrace · Digital Signature Maker · Serverless Workbench</title>
+    
+    <!-- Shared Workbench CSS -->
+    <link rel="stylesheet" href="../../css/main.css">
+    <!-- Tool-specific CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- ========== FAVICONS ========== -->
+    <link rel="icon" type="image/png" href="../../assets/Serverless-Workbench-favicon.png">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Tool Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="../../index.html" class="group flex items-center space-x-2 text-slate-500 hover:text-indigo-600 transition">
+                        <i class="fas fa-arrow-left text-sm group-hover:-translate-x-1 transition-transform"></i>
+                        <span class="text-sm font-medium">Dashboard</span>
+                    </a>
+                    <span class="text-slate-300">/</span>
+                    <span class="font-mono text-sm text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">tools/signatrace/</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-sm text-slate-400 hidden sm:block">v1.0</span>
+                    <div class="h-8 w-8 bg-indigo-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-pen-fancy text-indigo-600 text-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tool Header Card -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 p-4 rounded-2xl shadow-lg shadow-indigo-200">
+                        <i class="fas fa-pen-fancy text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-800">SignaTrace · Digital Signature Maker</h1>
+                        <div class="flex items-center space-x-2 mt-1">
+                            <span class="text-sm text-slate-500">Draw, customize, export</span>
+                            <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                            <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full text-slate-600">client-side</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="flex -space-x-2">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-paint-brush text-blue-600 text-xs"></i>
+                        </div>
+                        <div class="w-8 h-8 bg-purple-100 rounded-full border-2 border-white flex items-center justify-center">
+                            <i class="fas fa-download text-purple-600 text-xs"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm text-slate-400">instant export</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Tool Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <!-- Controls Panel (Left Side) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Pen Settings Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-paint-brush text-indigo-500"></i>
+                            <span>Pen Settings</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <!-- Color Picker -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-600 mb-3">Ink Color</label>
+                            <div class="flex items-center gap-4">
+                                <input type="color" id="penColor" value="#1e1b4b" class="w-16 h-10 rounded-lg border-2 border-slate-200 cursor-pointer">
+                                <div class="flex gap-2 flex-wrap">
+                                    <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #1e1b4b" data-color="#1e1b4b"></button>
+                                    <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #4f46e5" data-color="#4f46e5"></button>
+                                    <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #8b5cf6" data-color="#8b5cf6"></button>
+                                    <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #ec4899" data-color="#ec4899"></button>
+                                    <button class="color-preset w-8 h-8 rounded-full border-2 border-transparent hover:border-indigo-500 transition" style="background: #10b981" data-color="#10b981"></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pen Size -->
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-sm font-medium text-slate-600">Pen Thickness</label>
+                                <span class="text-xs font-mono bg-slate-100 px-2 py-1 rounded-full" id="pen-size-display">3px</span>
+                            </div>
+                            <input type="range" id="penSize" min="1" max="12" value="3" step="0.5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            
+                            <!-- Size preview -->
+                            <div class="mt-4 flex items-center gap-3">
+                                <span class="text-xs text-slate-500">Preview:</span>
+                                <div class="flex-1 h-8 bg-slate-100 rounded-lg flex items-center px-3">
+                                    <div id="pen-preview" class="rounded-full bg-indigo-600" style="width: 3px; height: 3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Signature Line Toggle -->
+                        <div class="border-t border-slate-100 pt-4">
+                            <label class="flex items-center justify-between cursor-pointer">
+                                <span class="text-sm font-medium text-slate-600">Show signature line</span>
+                                <div class="relative">
+                                    <input type="checkbox" id="showBaseline" class="sr-only" checked>
+                                    <div class="toggle-bg w-10 h-5 bg-slate-300 rounded-full shadow-inner"></div>
+                                    <div class="toggle-dot absolute w-4 h-4 bg-white rounded-full shadow left-0.5 top-0.5 transition"></div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                        <h3 class="font-semibold text-slate-700 flex items-center space-x-2">
+                            <i class="fas fa-bolt text-indigo-500"></i>
+                            <span>Quick Actions</span>
+                        </h3>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button id="clearBtn" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-medium transition flex items-center justify-center gap-2">
+                            <i class="fas fa-trash-alt"></i>
+                            Clear Canvas
+                        </button>
+                        
+                        <button id="downloadBtn" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:from-indigo-700 hover:to-purple-700 transition flex items-center justify-center gap-2 shadow-lg">
+                            <i class="fas fa-download"></i>
+                            Download PNG
+                        </button>
+                        
+                        <button id="copyBtn" class="w-full py-3 bg-emerald-600 text-white rounded-xl font-medium hover:bg-emerald-700 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-copy"></i>
+                            Copy to Clipboard
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tips Card -->
+                <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-lightbulb text-indigo-500 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-semibold text-indigo-700 mb-1">Pro Tips</h4>
+                            <ul class="text-xs text-indigo-600 space-y-1">
+                                <li>• Use a stylus for natural handwriting feel</li>
+                                <li>• Thicker pen works better for dark backgrounds</li>
+                                <li>• Signature line helps with alignment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas Panel (Right Side) -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <!-- Canvas Header -->
+                    <div class="bg-slate-50 px-6 py-3 border-b border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-draw-polygon text-indigo-500"></i>
+                            <span class="font-medium">Signature Canvas</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-slate-400" id="drawing-status">Ready</span>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Area -->
+                    <div id="canvas-container" class="canvas-container">
+                        <!-- Grid Background -->
+                        <div class="grid-background" id="grid"></div>
+                        
+                        <!-- Signature Baseline -->
+                        <div class="signature-line" id="baseline"></div>
+                        
+                        <!-- Main Drawing Canvas -->
+                        <canvas id="sigCanvas"></canvas>
+                        
+                        <!-- Drawing Indicator -->
+                        <div id="drawing-indicator" class="absolute top-2 right-2 bg-green-500 w-2 h-2 rounded-full opacity-0 transition-opacity"></div>
+                    </div>
+
+                    <!-- Canvas Footer -->
+                    <div class="bg-slate-50 px-6 py-2 border-t border-slate-200 text-xs text-slate-500 flex justify-between">
+                        <span><i class="fas fa-mouse-pointer mr-1"></i> Click and drag to draw</span>
+                        <span><i class="fas fa-mobile-alt mr-1"></i> Touch enabled</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full opacity-0 pointer-events-none transition-opacity duration-300 shadow-xl z-50 flex items-center gap-2">
+        <i class="fas fa-info-circle"></i>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- Tool-specific JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

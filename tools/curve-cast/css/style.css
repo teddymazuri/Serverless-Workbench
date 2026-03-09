@@ -1,4 +1,4 @@
-/* Simple, working styles for CurveCast */
+/* Enhanced styles for CurveCast with multiple curve types */
 #canvas-wrapper {
     position: relative;
     width: 100%;
@@ -18,26 +18,161 @@
     stroke: #8b5cf6;
     stroke-width: 2.5;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .anchor-point:hover {
     fill: #8b5cf6;
+    r: 7;
 }
 
 .control-point {
-    fill: #ec4899;
     stroke: white;
     stroke-width: 1.5;
     cursor: move;
+    transition: all 0.2s ease;
+}
+
+.control-point:hover {
+    r: 6;
+    filter: drop-shadow(0 0 4px currentColor);
+}
+
+.control-point[data-type="cp1"] {
+    fill: #ec4899; /* Pink for first control point */
+}
+
+.control-point[data-type="cp2"] {
+    fill: #8b5cf6; /* Purple for second control point */
 }
 
 .control-line {
     stroke: #ddd6fe;
     stroke-width: 1.5;
     stroke-dasharray: 4;
+    pointer-events: none;
+}
+
+/* Curve Type Buttons */
+.curve-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.curve-btn i {
+    font-size: 14px;
+}
+
+.curve-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.15);
+}
+
+/* Style Buttons */
+.style-btn {
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.style-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Color Buttons */
+.color-btn {
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.color-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Ghost path */
+#ghost-path {
+    stroke-dasharray: 6;
+    pointer-events: none;
 }
 
 /* Utility */
 .text-emerald-600 {
     color: #059669;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #canvas-wrapper {
+        height: 400px;
+    }
+    
+    .curve-btn {
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+    
+    .control-point {
+        r: 4;
+    }
+    
+    .anchor-point {
+        r: 5;
+    }
+}
+
+/* Animation for new points */
+@keyframes point-appear {
+    from {
+        r: 0;
+        opacity: 0;
+    }
+    to {
+        r: 6;
+        opacity: 1;
+    }
+}
+
+.anchor-point {
+    animation: point-appear 0.2s ease-out;
+}
+
+/* ====== HEEEEERRRRRRRREEEE!!!! =========*/
+/* Selected segment highlight */
+#controls-group line[stroke="#fbbf24"] {
+    pointer-events: none;
+    animation: pulse-highlight 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-highlight {
+    0%, 100% { stroke-opacity: 0.3; }
+    50% { stroke-opacity: 0.6; }
+}
+
+/* Cursor changes for segment selection */
+#main-svg.segment-select {
+    cursor: crosshair;
+}
+
+/* Delete button active state */
+#delete-segment-btn:not(:disabled) {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    animation: pulse-delete 2s ease-in-out infinite;
+}
+
+@keyframes pulse-delete {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Visual feedback when hovering over selectable segments */
+.segment-hover {
+    stroke: #fbbf24 !important;
+    stroke-width: 4 !important;
+    transition: all 0.2s ease;
 }

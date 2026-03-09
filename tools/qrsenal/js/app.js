@@ -62,7 +62,7 @@ function initializeTool() {
     });
     qrError.addEventListener('change', updateQR);
     
-    // Download button
+    // Download button - FIXED for mobile
     downloadBtn.addEventListener('click', downloadQR);
     
     // Scanner restart
@@ -149,20 +149,78 @@ function updateQR() {
     });
 }
 
-// Download QR Code
+// FIXED: Download QR Code as PNG with proper handling for mobile
 function downloadQR() {
-    const img = qrContainer.querySelector('img');
-    if (!img) {
+    const qrImage = qrContainer.querySelector('img, canvas');
+    if (!qrImage) {
         showToast('Generate a QR code first', 'error');
         return;
     }
+
+    let imageData;
     
-    const link = document.createElement('a');
-    link.download = `qrsenal-${Date.now()}.png`;
-    link.href = img.src;
-    link.click();
-    
-    showToast('QR code downloaded', 'success');
+    // Handle both img elements (from qrcodejs) and canvas (fallback)
+    if (qrImage.tagName === 'IMG') {
+        imageData = qrImage.src;
+    } else if (qrImage.tagName === 'CANVAS') {
+        imageData = qrImage.toDataURL('image/png');
+    } else {
+        showToast('QR code format not supported', 'error');
+        return;
+    }
+
+    // Convert data URL to blob for proper file download
+    fetch(imageData)
+        .then(res => res.blob())
+        .then(blob => {
+            // Create filename with timestamp
+            const filename = `qrsenal-${Date.now()}.png`;
+            
+            // For mobile devices, use a different approach if needed
+            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+                // Mobile download - use Blob URL
+                const blobUrl = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = filename;
+                
+                // Required for some mobile browsers
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                
+                // Trigger download
+                link.click();
+                
+                // Cleanup
+                setTimeout(() => {
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(blobUrl);
+                }, 100);
+            } else {
+                // Desktop download
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                URL.revokeObjectURL(link.href);
+            }
+            
+            showToast('QR code downloaded', 'success');
+        })
+        .catch(error => {
+            console.error('Download error:', error);
+            
+            // Fallback method for older browsers
+            try {
+                const link = document.createElement('a');
+                link.download = `qrsenal-${Date.now()}.png`;
+                link.href = imageData;
+                link.click();
+                showToast('QR code downloaded', 'success');
+            } catch (fallbackError) {
+                showToast('Download failed - try long-pressing the image', 'error');
+            }
+        });
 }
 
 // Template insertion

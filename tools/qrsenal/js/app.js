@@ -227,8 +227,8 @@ function downloadQR() {
 function insertTemplate(type) {
     const templates = {
         'url': 'https://example.com',
-        'phone': 'tel:+1234567890',
-        'email': 'mailto:hello@example.com',
+        'phone': '+1234567890',
+        'email': 'hello@example.com',
         'text': 'Hello, world!'
     };
     
